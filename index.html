@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#17211c" />
+  <meta name="description" content="Race a keke from Isolo to Ikotun, fill every passenger seat, and beat the clock." />
+  <title>Keke Rush — Isolo to Ikotun</title>
+</head>
+<body>
+  <canvas id="game" aria-label="Keke Rush 3D game"></canvas>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Keke Rush home"><span>KR</span> Keke Rush</a>
+    <button id="pause-button" class="icon-button hidden" type="button" aria-label="Pause game">Ⅱ</button>
+  </header>
+  <main>
+    <section id="hud" class="hud hidden" aria-label="Race information">
+      <div class="hud-card"><span>PASSENGERS</span><strong id="passenger-count">○ ○ ○</strong><small id="seat-count">0 / 3 seats</small></div>
+      <div class="hud-card route"><span>TO IKOTUN</span><strong id="distance-left">2.4</strong><small>KM</small></div>
+      <div class="hud-card"><span>TIME</span><strong id="timer">00:00.0</strong><small id="best-time">Best —</small></div>
+    </section>
+    <section id="start-screen" class="panel">
+      <p class="eyebrow">Isolo → Ikotun</p>
+      <h1>Fill every seat.<br /><em>Beat the road.</em></h1>
+      <p class="lede">Pick up three passengers and reach Ikotun before the clock gets the better of you.</p>
+      <label for="player-name">Driver name</label>
+      <div class="name-row"><input id="player-name" maxlength="20" autocomplete="nickname" placeholder="What should we call you?" /><button id="start-button" class="primary" type="button">Start engine ↗</button></div>
+      <p id="name-error" class="error" role="alert"></p>
+      <div class="instructions"><span><kbd>WASD</kbd> drive</span><span><kbd>E</kbd> pick up</span><span><kbd>P</kbd> pause</span></div>
+    </section>
+    <section id="pickup-prompt" class="pickup-prompt hidden" aria-live="polite"><span id="pickup-label">Passenger waiting</span><strong id="pickup-action">Slow down and press E</strong><div class="progress"><i id="pickup-progress"></i></div></section>
+    <section id="result-screen" class="panel hidden" aria-live="polite"><p id="result-eyebrow" class="eyebrow">Route complete</p><h2 id="result-title">You made it!</h2><p id="result-copy"></p><button id="restart-button" class="primary" type="button">Race again ↗</button></section>
+    <section id="pause-screen" class="panel hidden"><p class="eyebrow">Engine idling</p><h2>Race paused</h2><button id="resume-button" class="primary" type="button">Continue driving</button></section>
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+    <div class="touch-controls" aria-label="Touch controls">
+      <button data-control="left" aria-label="Steer left">←</button><button data-control="brake">Brake</button><button data-control="pickup" class="pickup">Pick up</button><button data-control="accelerate" class="accelerate">Go</button><button data-control="right" aria-label="Steer right">→</button>
+    </div>
+  </main>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
