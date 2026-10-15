@@ -67,8 +67,16 @@ try {
 
   await mkdir("test-results", { recursive: true });
   await page.screenshot({ path: "test-results/keke-rush-complete.png", fullPage: true });
+  await page.setViewportSize({ width: 390, height: 844 });
+  const accelerateButton = page.locator('[data-control="accelerate"]');
+  assert(await accelerateButton.isVisible(), "Mobile accelerate control is not visible");
+  const controlBox = await accelerateButton.boundingBox();
+  assert(Boolean(controlBox && controlBox.height >= 44), "Mobile controls are too small for touch input");
+  await page.evaluate(() => window.__kekeRushTest?.placeAtFinish());
+  await page.locator("#result-screen").waitFor({ state: "visible" });
+  assert((await page.locator("#result-title").textContent()) === "Not so fast, driver.", "Incomplete passenger load incorrectly produced a win");
   assert(errors.length === 0, `Browser errors: ${errors.join(" | ")}`);
-  process.stdout.write("E2E passed: start → drive → pause → 3 pickups → valid finish → ghost reload\n");
+  process.stdout.write("E2E passed: start → input → pause → 3 pickups → valid finish → leaderboard → ghost → mobile controls → invalid finish\n");
 } finally {
   await browser?.close();
   vite.kill();
