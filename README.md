@@ -9,7 +9,13 @@ corepack pnpm install
 corepack pnpm dev
 ```
 
-Create a production build with `corepack pnpm build`.
+Run all verification with:
+
+```bash
+corepack pnpm test
+corepack pnpm build
+corepack pnpm test:e2e
+```
 
 ## Controls
 
@@ -21,7 +27,7 @@ Create a production build with `corepack pnpm build`.
 
 Touch controls appear automatically on smaller screens.
 
-## Current milestone
+## Features
 
 - Procedural low-poly Three.js environment
 - Arcade keke driving and follow camera
@@ -35,6 +41,11 @@ Touch controls appear automatically on smaller screens.
 - Live speed and vehicle-status display
 - Best valid run recording and translucent ghost replay
 - Live lead-distance comparison against the player's ghost
+- Deterministic player recognition with persistent driver and keke styling
+- Optional Start.ng character API adapter with automatic local fallback
+- Persistent local top-five leaderboard
+- Procedural engine, pickup, collision and finish audio
+- Automated race-rule, character, leaderboard and browser-flow tests
 
 ## Game rules
 
@@ -45,7 +56,34 @@ Touch controls appear automatically on smaller screens.
 
 Crossing the finish without a full passenger load ends the attempt as an invalid run.
 
-## Next milestones
+## Start.ng character integration
 
-- Extract player identity behind a replaceable character-service interface
-- Add route audio, richer roadside landmarks and performance tuning
+The public Start.ng site does not currently publish a verified character API contract. Keke Rush therefore uses a replaceable `CharacterService` boundary:
+
+```text
+Game → StartNgCharacterService → LocalCharacterService fallback
+```
+
+Without configuration, the local service recognizes returning players through an anonymous browser ID and recreates the same character appearance on every visit.
+
+When a compatible endpoint becomes available, copy `.env.example` to `.env` and set:
+
+```text
+VITE_STARTNG_CHARACTER_API_URL=https://example.com/api/characters/me
+```
+
+The request includes browser credentials and an `X-Player-Id` header. The endpoint should return:
+
+```json
+{
+  "id": "player-id",
+  "displayName": "Tolu",
+  "driverStyle": "Road Captain",
+  "primaryColor": "#f3c32e",
+  "secondaryColor": "#17211c",
+  "kekePattern": "Sunburst",
+  "source": "startng"
+}
+```
+
+Invalid responses or unavailable endpoints fall back to the local character without preventing gameplay. Do not expose secret API credentials through `VITE_*` variables.

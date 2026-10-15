@@ -11,7 +11,7 @@
   <canvas id="game" aria-label="Keke Rush 3D game"></canvas>
   <header class="topbar">
     <a class="brand" href="/" aria-label="Keke Rush home"><span>KR</span> Keke Rush</a>
-    <button id="pause-button" class="icon-button hidden" type="button" aria-label="Pause game">Ⅱ</button>
+    <div class="top-actions"><button id="sound-button" class="icon-button" type="button" aria-label="Mute sound">♪</button><button id="pause-button" class="icon-button hidden" type="button" aria-label="Pause game">Ⅱ</button></div>
   </header>
   <main>
     <section id="hud" class="hud hidden" aria-label="Race information">
@@ -20,6 +20,7 @@
       <div class="hud-card"><span>TIME</span><strong id="timer">00:00.0</strong><small id="best-time">Best —</small></div>
     </section>
     <div id="ghost-status" class="ghost-status hidden" role="status">First valid run sets your ghost</div>
+    <div id="character-badge" class="character-badge hidden"><span id="character-swatch"></span><strong id="character-name">Driver</strong><small id="character-style">Road Captain</small></div>
     <section id="start-screen" class="panel">
       <p class="eyebrow">Isolo → Ikotun</p>
       <h1>Fill every seat.<br /><em>Beat the road.</em></h1>
@@ -28,10 +29,11 @@
       <div class="name-row"><input id="player-name" maxlength="20" autocomplete="nickname" placeholder="What should we call you?" /><button id="start-button" class="primary" type="button">Start engine ↗</button></div>
       <p id="name-error" class="error" role="alert"></p>
       <div class="instructions"><span><kbd>WASD</kbd> drive</span><span><kbd>E</kbd> pick up</span><span><kbd>P</kbd> pause</span></div>
+      <div class="leaderboard"><h3>Fastest full trips</h3><ol id="leaderboard-list"><li>No completed trips yet</li></ol></div>
     </section>
     <section id="pickup-prompt" class="pickup-prompt hidden" aria-live="polite"><span id="pickup-label">Passenger waiting</span><strong id="pickup-action">Slow down and press E</strong><div class="progress"><i id="pickup-progress"></i></div></section>
     <aside id="drive-status" class="drive-status hidden" aria-label="Driving status"><span>SPEED</span><strong id="speed-reading">0</strong><small>KM/H</small><i id="impact-status">Keke steady</i></aside>
-    <section id="result-screen" class="panel hidden" aria-live="polite"><p id="result-eyebrow" class="eyebrow">Route complete</p><h2 id="result-title">You made it!</h2><p id="result-copy"></p><button id="restart-button" class="primary" type="button">Race again ↗</button></section>
+    <section id="result-screen" class="panel hidden" aria-live="polite"><p id="result-eyebrow" class="eyebrow">Route complete</p><h2 id="result-title">You made it!</h2><p id="result-copy"></p><div class="leaderboard"><h3>Fastest full trips</h3><ol id="result-leaderboard"><li>No completed trips yet</li></ol></div><button id="restart-button" class="primary" type="button">Race again ↗</button></section>
     <section id="pause-screen" class="panel hidden"><p class="eyebrow">Engine idling</p><h2>Race paused</h2><button id="resume-button" class="primary" type="button">Continue driving</button></section>
     <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
     <div class="touch-controls" aria-label="Touch controls">
