@@ -33,6 +33,8 @@ Touch controls appear automatically on smaller screens.
 - Oncoming traffic and pothole hazards
 - Collision slowdown and time penalties
 - Live speed and vehicle-status display
+- Best valid run recording and translucent ghost replay
+- Live lead-distance comparison against the player's ghost
 
 ## Game rules
 
@@ -45,6 +47,5 @@ Crossing the finish without a full passenger load ends the attempt as an invalid
 
 ## Next milestones
 
-- Record and replay the player's best run as a ghost competitor
 - Extract player identity behind a replaceable character-service interface
 - Add route audio, richer roadside landmarks and performance tuning
